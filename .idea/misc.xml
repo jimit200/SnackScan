@@ -4,9 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/HP/Documents/GitHub/SnackScan/app/src/main/res/layout/activity_main.xml" value="0.1641337386018237" />
+<<<<<<< HEAD
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23217397817705873" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.23177083333333334" />
+=======
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/camera_page.xml" value="0.42182898400643926" />
+>>>>>>> main
       </map>
     </option>
   </component>
