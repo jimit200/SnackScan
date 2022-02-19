@@ -8,11 +8,7 @@
     tools:context=".MainActivity">
 
     <TextView
-<<<<<<< HEAD
-        android:id="@+id/homeTitle"
-=======
         android:id="@+id/textView"
->>>>>>> main
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_mono_bold"
@@ -34,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         android:onClick="logout"/>
 
     <Button
