@@ -8,11 +8,6 @@
     tools:context=".MainActivity">
 
     <TextView
-<<<<<<< HEAD
-        android:id="@+id/homeTitle"
-=======
-        android:id="@+id/textView"
->>>>>>> main
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_mono_bold"
@@ -34,8 +29,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTitle"
-        android:onClick="logout"/>
+        android:onClick="logout"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/tocamera"
@@ -43,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:text="camerapage"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
