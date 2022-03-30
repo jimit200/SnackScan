@@ -43,4 +43,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="4000dp"/>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
