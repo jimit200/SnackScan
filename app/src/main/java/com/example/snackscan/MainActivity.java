@@ -40,10 +40,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 101;
     private ImageView iview;
     private Button btn;
+    private Button nextBtn;
     private String fileName = "";
     private Button CaptureImageBtn,detectTextBtn;
     private ImageView imageView;
     private TextView textView;
+    public static String resultText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.camera_page);
         iview = (ImageView) findViewById(R.id.imageview);
         btn = (Button) findViewById(R.id.button);
+        nextBtn = (Button) findViewById(R.id.nextBtn);
 
+
+        nextBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(getApplicationContext(),TextRecognitionActivity.class));
+
+            }
+
+            });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
                     @Override
                     public void onSuccess(FirebaseVisionText result) {
-                        String resultText = result.getText();
+                        resultText = result.getText();
                         for (FirebaseVisionText.TextBlock block: result.getTextBlocks()) {
                             String blockText = block.getText();
                             Float blockConfidence = block.getConfidence();
