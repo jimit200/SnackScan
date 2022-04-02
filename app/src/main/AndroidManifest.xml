@@ -22,6 +22,9 @@
             android:name=".EnterAllergiesActivity"
             android:exported="false" />
         <activity
+            android:name=".TextRecognitionActivity" 
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
