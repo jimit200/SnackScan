@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.registerProgressBar);
 
         if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), DataActivity.class));
             finish();
         }
 
