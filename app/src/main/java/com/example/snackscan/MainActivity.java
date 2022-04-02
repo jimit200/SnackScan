@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private Button CaptureImageBtn,detectTextBtn;
     private ImageView imageView;
     private TextView textView;
-    public static String resultText;
+    private String resultText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,11 @@ public class MainActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(getApplicationContext(),TextRecognitionActivity.class));
+                System.out.println("Button working");
+                Intent sendText = new Intent(getApplicationContext(), TextRecognitionActivity.class);
+                sendText.putExtra("scanned_text", resultText);
+                startActivity(sendText);
+                //startActivity(new Intent(getApplicationContext(),TextRecognitionActivity.class));
 
             }
 
@@ -101,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(FirebaseVisionText result) {
                         resultText = result.getText();
+                        System.out.println(resultText);
                         for (FirebaseVisionText.TextBlock block: result.getTextBlocks()) {
                             String blockText = block.getText();
                             Float blockConfidence = block.getConfidence();
