@@ -19,7 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SnackScan">
         <activity
-            android:name=".TextRecognitionActivity"
+            android:name=".EnterAllergiesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TextRecognitionActivity" 
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

@@ -97,7 +97,10 @@ public class RegisterActivity extends AppCompatActivity {
                                     Log.d(TAG, "onSuccess: user profile is created for " + userID);
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                            Intent sendIntent = new Intent(getApplicationContext(), EnterAllergiesActivity.class);
+                            sendIntent.putExtra("user_id", userID);
+                            startActivity(sendIntent);
                         } else {
                             Toast.makeText(RegisterActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT);
                             progressBar.setVisibility(View.GONE);
