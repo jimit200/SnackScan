@@ -45,14 +45,21 @@ public class MainActivity extends AppCompatActivity {
     private Button CaptureImageBtn,detectTextBtn;
     private ImageView imageView;
     private TextView textView;
+
+
     private String resultText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.camera_page);
+        setContentView(R.layout.activity_main);
+
+
         iview = (ImageView) findViewById(R.id.imageview);
         btn = (Button) findViewById(R.id.button);
+
+
         nextBtn = (Button) findViewById(R.id.nextBtn);
 
 
@@ -68,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,8 +112,11 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
                     @Override
                     public void onSuccess(FirebaseVisionText result) {
+
+
                         resultText = result.getText();
                         System.out.println(resultText);
+
                         for (FirebaseVisionText.TextBlock block: result.getTextBlocks()) {
                             String blockText = block.getText();
                             Float blockConfidence = block.getConfidence();
