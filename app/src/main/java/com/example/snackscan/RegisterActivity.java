@@ -51,9 +51,13 @@ public class RegisterActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.registerProgressBar);
+        userID = fAuth.getCurrentUser().getUid();
 
         if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), DataActivity.class));
+//            startActivity(new Intent(getApplicationContext(), DataActivity.class));
+            Intent sendIntent = new Intent(getApplicationContext(), DataActivity.class);
+            sendIntent.putExtra("user_id", userID);
+            startActivity(sendIntent);
             finish();
         }
 

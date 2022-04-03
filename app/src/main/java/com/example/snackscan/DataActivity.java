@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,25 +22,45 @@ import com.google.firebase.firestore.QuerySnapshot;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DataActivity extends AppCompatActivity {
+    TextView calNum;
+    TextView fatNum;
+    TextView sugarNum;
+    TextView proteinNum;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TextView calNum = findViewById(R.id.calnumber);
-        TextView fatNum = findViewById(R.id.fatnumber);
-        TextView sugarNum = findViewById(R.id.sugarnumber);
-        TextView proteinNum = findViewById(R.id.proteinnumber);
+        setContentView(R.layout.data_page);
+
+        calNum = (TextView) findViewById(R.id.calnumber);
+        fatNum = findViewById(R.id.fatnumber);
+        sugarNum = findViewById(R.id.sugarnumber);
+        proteinNum = findViewById(R.id.proteinnumber);
+        fAuth = FirebaseAuth.getInstance();
+
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("user_id");
+
+//        String id = fAuth.auth().currentUser.uid;
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("users").document("KEf2aPLeBNXRLW4vrPhWC2AwMvM2").collection("data").document("y25iEa9Ykl0IufCBQ1cF");
+        DocumentReference docRef = db.collection("users").document(id).collection("data").document("y25iEa9Ykl0IufCBQ1cF");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        calNum.setText((CharSequence) document.getData());
+                        calNum.setText(" " + document.getData().get("Calories"));
+                        fatNum.setText(" " + document.getData().get("Fat"));
+                        sugarNum.setText(" " + document.getData().get("Sugar"));
+                        proteinNum.setText(" " + document.getData().get("Protein"));
+
                     } else {
                         Log.d("invalid", "No such document");
                     }
