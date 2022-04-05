@@ -21,8 +21,11 @@ public class ChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BarChart chart = (BarChart) findViewById(R.id.chart);
-
-        BarData data = new BarData((IBarDataSet) getXAxisValues(), (IBarDataSet) getDataSet());
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        ArrayList sets = getDataSet();
+        dataSets.add(0, (IBarDataSet) sets.get(0));
+        dataSets.add(1, (IBarDataSet) sets.get(1));
+        BarData data = new BarData(dataSets);
         chart.setData(data);
         Description d = new Description();
         d.setText("My Chart");
