@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                System.out.println("Button working");
+
                 Intent sendText = new Intent(getApplicationContext(), TextRecognitionActivity.class);
                 sendText.putExtra("scanned_text", resultText);
                 startActivity(sendText);

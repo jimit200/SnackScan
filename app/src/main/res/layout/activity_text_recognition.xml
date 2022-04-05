@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_mono_bold"
-        android:text="1500"
+        android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
