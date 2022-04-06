@@ -23,8 +23,8 @@ public class ChartActivity extends AppCompatActivity {
         BarChart chart = (BarChart) findViewById(R.id.chart);
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         ArrayList sets = getDataSet();
-        dataSets.add(0, (IBarDataSet) sets.get(0));
-        dataSets.add(1, (IBarDataSet) sets.get(1));
+        dataSets.add((IBarDataSet) sets.get(0));
+        dataSets.add((IBarDataSet) sets.get(1));
         BarData data = new BarData(dataSets);
         chart.setData(data);
         Description d = new Description();
