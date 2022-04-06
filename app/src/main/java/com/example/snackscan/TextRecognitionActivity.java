@@ -28,6 +28,11 @@ public class TextRecognitionActivity extends AppCompatActivity {
     private int proteinIndex;
     private int sugarIndex;
     private int fatIndex;
+    private Boolean foundCal=false;
+    private Boolean foundProtein=false;
+    private Boolean foundSugar=false;
+    private Boolean foundFat=false;
+
     public static double findSimilarity(String x, String y) {
 
         double maxLength = Math.max(x.length(), y.length());
@@ -63,38 +68,42 @@ public class TextRecognitionActivity extends AppCompatActivity {
         String [] food_info = id.split("\\s+");
         //String [] food_info = {"CElurios", "560", "prOton", "34","fut", "23", "Sagar","9859"};
 
-//        System.out.println("TESTING!!!!!!!");
+        System.out.println("TESTING!!!!!!!");
 //        System.out.println(food_info.length);
 //        System.out.println();
 
         for(int i=0; i< food_info.length; i++){
-            if(findSimilarity("calories", food_info[i].toLowerCase())>= 0.5){
+            if(findSimilarity("calories", food_info[i].toLowerCase())>= 0.5 && !foundCal){
 
                 caloriesIndex = i+1;
+                foundCal = true;
             }
-            if(findSimilarity("protein", food_info[i].toLowerCase())>= 0.5){
+            if(findSimilarity("protein", food_info[i].toLowerCase())>= 0.5 && !foundProtein){
 
                 proteinIndex = i+1;
+                foundProtein = true;
 
             }
-            if(findSimilarity("fat", food_info[i].toLowerCase())>= 0.5){
+            if(findSimilarity("carbohydrates", food_info[i].toLowerCase())>= 0.5 && !foundSugar){
 
                 sugarIndex = i+1;
+                foundSugar = true;
 
             }
-            if(findSimilarity("sugar", food_info[i].toLowerCase())>= 0.5){
+            if(findSimilarity("fat", food_info[i].toLowerCase())>= 0.5 && !foundFat){
 
                 fatIndex = i+1;
+                foundFat = true;
 
             }
 
         }
-//        System.out.println(caloriesIndex);
-//        System.out.println(proteinIndex);
-//        System.out.println(sugarIndex);
-//        System.out.println(fatIndex);
-//
-//        System.out.println(Arrays.deepToString(food_info));
+        System.out.println(caloriesIndex);
+        System.out.println(proteinIndex);
+        System.out.println(sugarIndex);
+        System.out.println(fatIndex);
+
+       System.out.println(Arrays.deepToString(food_info));
 //        System.out.println("printing Array of food");
 
         Calories.setText(food_info[caloriesIndex]);
