@@ -6,31 +6,24 @@ import org.apache.commons.text.similarity.CosineDistance;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Locale;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-
-
-import com.google.android.gms.common.util.ArrayUtils;
-import com.google.common.primitives.Ints;
-
 public class TextRecognitionActivity extends AppCompatActivity {
     TextView Ingredients;
     TextView Calories;
     TextView Protein;
-    TextView Sugar;
+    TextView Carb;
     TextView Fat;
     private int caloriesIndex;
     private int proteinIndex;
-    private int sugarIndex;
+    private int carbIndex;
     private int fatIndex;
     private Boolean foundCal=false;
     private Boolean foundProtein=false;
-    private Boolean foundSugar=false;
+    private Boolean foundCarb =false;
     private Boolean foundFat=false;
 
     public static double findSimilarity(String x, String y) {
@@ -47,10 +40,10 @@ public class TextRecognitionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_recognition);
-        Ingredients = (TextView)findViewById(R.id.ingredients);
+//        Ingredients = (TextView)findViewById(R.id.ingredients);
         Calories = (TextView)findViewById((R.id.calnumber));
         Protein = (TextView)findViewById(R.id.proteinnumber);
-        Sugar = (TextView)findViewById((R.id.sugarnumber));
+        Carb = (TextView)findViewById((R.id.carbnumber));
         Fat = (TextView)findViewById(R.id.fatnumber);
 
 
@@ -84,13 +77,13 @@ public class TextRecognitionActivity extends AppCompatActivity {
                 foundProtein = true;
 
             }
-            if(findSimilarity("carbohydrates", food_info[i].toLowerCase())>= 0.5 && !foundSugar){
+            if(findSimilarity("carbohydrates", food_info[i].toLowerCase())>= 0.5 && !foundCarb){
 
-                sugarIndex = i+1;
-                foundSugar = true;
+                carbIndex = i+1;
+                foundCarb = true;
 
             }
-            if(findSimilarity("fat", food_info[i].toLowerCase())>= 0.5 && !foundFat){
+            if(findSimilarity("fat", food_info[i].toLowerCase())>= 0.8 && !foundFat){
 
                 fatIndex = i+1;
                 foundFat = true;
@@ -100,7 +93,7 @@ public class TextRecognitionActivity extends AppCompatActivity {
         }
         System.out.println(caloriesIndex);
         System.out.println(proteinIndex);
-        System.out.println(sugarIndex);
+        System.out.println(carbIndex);
         System.out.println(fatIndex);
 
        System.out.println(Arrays.deepToString(food_info));
@@ -108,7 +101,7 @@ public class TextRecognitionActivity extends AppCompatActivity {
 
         Calories.setText(food_info[caloriesIndex]);
         Protein.setText(food_info[proteinIndex]);
-        Sugar.setText(food_info[sugarIndex]);
+        Carb.setText(food_info[carbIndex]);
         Fat.setText(food_info[fatIndex]);
         //Ingredients.setText(id);
 
