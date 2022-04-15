@@ -18,6 +18,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class EnterAllergiesActivity extends AppCompatActivity {
 
     EditText mAllergies;
+    EditText mCalories;
+    EditText mFat;
+    EditText mCarbs;
+    EditText mProtein;
+
+
+
     Button mSubmitButton;
     FirebaseFirestore fStore;
 
@@ -27,7 +34,10 @@ public class EnterAllergiesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enter_allergies);
         fStore = FirebaseFirestore.getInstance();
         mAllergies = findViewById(R.id.editTextAllergies);
-        mSubmitButton = findViewById(R.id.submitButton);
+        mCalories = findViewById(R.id.editTextCalories);
+        mFat = findViewById(R.id.editTextFat);
+        mCarbs = findViewById(R.id.editTextCarbs);
+        mProtein = findViewById(R.id.editTextProtein);
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
 
@@ -36,12 +46,40 @@ public class EnterAllergiesActivity extends AppCompatActivity {
                 Intent intent = getIntent();
                 String id = intent.getStringExtra("user_id");
                 String allergies = mAllergies.getText().toString();
+                String calories = mCalories.getText().toString();
+                String fat = mFat.getText().toString();
+                String carbs = mCarbs.getText().toString();
+                String protein = mProtein.getText().toString();
 
                 DocumentReference documentReference = fStore.collection("users").document(id);
                 documentReference.update("Allergies", allergies).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(TAG, "onSuccess: user allergies added for " + id);
+                    }
+                });
+                documentReference.update("Calories", calories).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: user calorie limit added for " + id);
+                    }
+                });
+                documentReference.update("Fat", fat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: user fat limit added for " + id);
+                    }
+                });
+                documentReference.update("Carbs", carbs).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: user carbs limit added for " + id);
+                    }
+                });
+                documentReference.update("Protein", protein).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: user protein limit added for " + id);
                     }
                 });
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
