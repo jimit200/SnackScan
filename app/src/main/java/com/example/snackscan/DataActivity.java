@@ -31,6 +31,7 @@ public class DataActivity extends AppCompatActivity {
     TextView sugarNum;
     TextView proteinNum;
     FirebaseAuth fAuth;
+//    int totalCal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,8 @@ public class DataActivity extends AppCompatActivity {
                         fatNum.setText(" " + document.getData().get("Fat"));
                         sugarNum.setText(" " + document.getData().get("Sugar"));
                         proteinNum.setText(" " + document.getData().get("Protein"));
-
+//                        totalCal = (int) document.getData().get("Calories");
+//                        calNum.setText(totalCal);
                     } else {
                         Log.d("invalid", "No such document");
                     }

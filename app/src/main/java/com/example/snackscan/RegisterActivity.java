@@ -51,9 +51,10 @@ public class RegisterActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.registerProgressBar);
-        userID = fAuth.getCurrentUser().getUid();
+//        userID = fAuth.getCurrentUser().getUid();
 
         if (fAuth.getCurrentUser() != null) {
+            userID = fAuth.getCurrentUser().getUid();
 //            startActivity(new Intent(getApplicationContext(), DataActivity.class));
             Intent sendIntent = new Intent(getApplicationContext(), DataActivity.class);
             sendIntent.putExtra("user_id", userID);
@@ -95,6 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Map<String, Object> user = new HashMap<>();
                             user.put("name", fullName);
                             user.put("email", email);
+
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
