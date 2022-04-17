@@ -31,6 +31,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".ManualInputActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="true">
             <intent-filter>

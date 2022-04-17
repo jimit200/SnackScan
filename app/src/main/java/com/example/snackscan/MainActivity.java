@@ -28,6 +28,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView iview;
     private Button btn;
     private Button nextBtn;
+    private Button manualBtn;
     private String fileName = "";
     private Button CaptureImageBtn,detectTextBtn;
     private ImageView imageView;
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         iview = (ImageView) findViewById(R.id.imageview);
         btn = (Button) findViewById(R.id.button);
         nextBtn = (Button) findViewById(R.id.nextBtn);
-
+        //    manual enter btn : take you to a screen where you can manually enter 4 elements
+        manualBtn = (Button) findViewById(R.id.manualBtn);
 
         nextBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +82,14 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+            }
+        });
+        //  TODO: set up manualBtn click leads to activity_manual_input.xml
+        manualBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ManualInputActivity.class));
+                finish();
             }
         });
     }
