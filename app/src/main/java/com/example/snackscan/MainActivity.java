@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(FirebaseVisionText result) {
                         resultText = result.getText();
-                        System.out.println(resultText);
+//                        System.out.println(resultText);
                         for (FirebaseVisionText.TextBlock block: result.getTextBlocks()) {
                             String blockText = block.getText();
                             Float blockConfidence = block.getConfidence();
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                                 Rect lineFrame = line.getBoundingBox();
                                 for (FirebaseVisionText.Element element: line.getElements()) {
                                     String elementText = element.getText();
-                                    System.out.println(elementText);
+//                                    System.out.println(elementText);
                                     Float elementConfidence = element.getConfidence();
                                     List<RecognizedLanguage> elementLanguages = element.getRecognizedLanguages();
                                     Point[] elementCornerPoints = element.getCornerPoints();

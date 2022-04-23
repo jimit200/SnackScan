@@ -1,18 +1,42 @@
 package com.example.snackscan;
 //package org.apache.commons.text.similarity;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import org.apache.commons.text.similarity.CosineDistance;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
+
+import com.google.android.gms.common.util.ArrayUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.common.primitives.Ints;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
+
+
 public class TextRecognitionActivity extends AppCompatActivity {
-    TextView Ingredients;
+    TextView Allergies;
     TextView Calories;
     TextView Protein;
     TextView Carb;
@@ -21,10 +45,18 @@ public class TextRecognitionActivity extends AppCompatActivity {
     private int proteinIndex;
     private int carbIndex;
     private int fatIndex;
+
+    private String []  ingredients_array;
+    private List<String>  foundAllergies = new ArrayList<String>();
+    String [] userAllergiesArray;
+    private String userAllergies;
+    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+
     private Boolean foundCal=false;
     private Boolean foundProtein=false;
     private Boolean foundCarb =false;
     private Boolean foundFat=false;
+
 
     public static double findSimilarity(String x, String y) {
 
@@ -36,15 +68,19 @@ public class TextRecognitionActivity extends AppCompatActivity {
         return 1.0;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_recognition);
-//        Ingredients = (TextView)findViewById(R.id.ingredients);
+
+        Allergies = (TextView)findViewById(R.id.allergieslabel);
+
         Calories = (TextView)findViewById((R.id.calnumber));
         Protein = (TextView)findViewById(R.id.proteinnumber);
         Carb = (TextView)findViewById((R.id.carbnumber));
         Fat = (TextView)findViewById(R.id.fatnumber);
+        //fStore = FirebaseFirestore.getInstance();
 
 
 
@@ -56,17 +92,24 @@ public class TextRecognitionActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("scanned_text");
-        id.replace("\n", " ");
-        String [] food_info = id.split("\\s+");
-        //String [] food_info = {"CElurios", "560", "prOton", "34","fut", "23", "Sagar","9859"};
+        String id_scanned = intent.getStringExtra("scanned_text");
+        id_scanned.replace("\n", " ");
+        String [] food_info = id_scanned.split("\\s+");
+       // System.out.println(food_info);
 
-        System.out.println("TESTING!!!!!!!");
-//        System.out.println(food_info.length);
-//        System.out.println();
+//        String [] food_info = {"CElurios", "560", "prOton", "34","fut", "23", "Sagar","9859"};
+
+
 
         for(int i=0; i< food_info.length; i++){
+            if(findSimilarity("ingredients", food_info[i].toLowerCase())>= 0.5){
+
+                ingredients_array = Arrays.copyOfRange(food_info, i, (food_info.length-1));
+            }
+
+            
             if(findSimilarity("calories", food_info[i].toLowerCase())>= 0.5 && !foundCal){
+
 
                 caloriesIndex = i+1;
                 foundCal = true;
@@ -77,12 +120,15 @@ public class TextRecognitionActivity extends AppCompatActivity {
                 foundProtein = true;
 
             }
+
             if(findSimilarity("carbohydrates", food_info[i].toLowerCase())>= 0.5 && !foundCarb){
+
 
                 carbIndex = i+1;
                 foundCarb = true;
 
             }
+
             if(findSimilarity("fat", food_info[i].toLowerCase())>= 0.8 && !foundFat){
 
                 fatIndex = i+1;
@@ -106,8 +152,60 @@ public class TextRecognitionActivity extends AppCompatActivity {
         //Ingredients.setText(id);
 
 
-
+        System.out.println(Arrays.deepToString(ingredients_array)+ "words");
         //System.out.println(Arrays.deepToString(food_info));
+        //
+        //String id = intent.getStringExtra("user_id");
+        //uuid = user.getUid();
+        Source source = Source.CACHE;
+        DocumentReference documentReference = fStore.collection("users").document("CAkzWqFKbgMcvPWSYyxzi3821lW2");
+        documentReference.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+//                    System.out.println("task is successful");
+                    if (document != null) {
+
+                        userAllergies = (String)document.get("Allergies");
+                        userAllergiesArray = userAllergies.split(",");
+//                        System.out.println(userAllergiesArray.length);
+//                        System.out.println(Arrays.toString(userAllergiesArray));
+//                        System.out.println(ingredients_array.length);
+                        List<String> userAllergiesList = Arrays.asList(userAllergiesArray);
+                        for(int i= 0; i< userAllergiesList.size(); i++){
+                            for(int j = 0; j<ingredients_array.length ; j++){
+//                                System.out.print(userAllergiesList.get(i).toLowerCase());
+//                                System.out.print(ingredients_array[j].toLowerCase());
+                                if(findSimilarity(userAllergiesList.get(i).toLowerCase(), ingredients_array[j].toLowerCase())>= 0.5){
+
+                                    foundAllergies.add(userAllergiesArray[i]);
+                                }
+
+                            }
+                        }
+
+                        if (!foundAllergies.isEmpty()){
+                            System.out.println(foundAllergies);
+                            String found = String.join(", ", foundAllergies);
+                            Allergies.setText("Warning! Contains:" + found);
+
+
+
+                        }
+                    } else {
+                        Log.d("LOGGER", "No such document");
+                    }
+                } else {
+                    System.out.println("Not workking");
+                    Log.d("LOGGER", "get failed with ", task.getException());
+                }
+            }
+        });
+
 
 
 

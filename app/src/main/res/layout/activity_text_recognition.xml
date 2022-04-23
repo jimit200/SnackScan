@@ -142,7 +142,26 @@
         app:layout_constraintVertical_bias="0.575" />
 
     <TextView
+
+        android:id="@+id/allergieslabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_mono_bold"
+        android:text="Contains: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.744" />
+
+    <TextView
+ 
+
         android:id="@+id/CarbLabel"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_mono_bold"
@@ -156,12 +175,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.516" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/ingredients"-->
-<!--        android:layout_width="272dp"-->
-<!--        android:layout_height="96dp"-->
-<!--        android:text="TextView"-->
-<!--        tools:layout_editor_absoluteX="48dp"-->
-<!--        tools:layout_editor_absoluteY="147dp" />-->
+
+    <TextView
+        android:id="@+id/ingredients"
+        android:layout_width="272dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="147dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="488dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
