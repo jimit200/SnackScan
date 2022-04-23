@@ -10,16 +10,17 @@ import org.apache.commons.text.similarity.CosineDistance;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-
 
 
 import com.google.android.gms.common.util.ArrayUtils;
@@ -33,21 +34,30 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 
+
 public class TextRecognitionActivity extends AppCompatActivity {
     TextView Allergies;
     TextView Calories;
     TextView Protein;
-    TextView Sugar;
+    TextView Carb;
     TextView Fat;
     private int caloriesIndex;
     private int proteinIndex;
-    private int sugarIndex;
+    private int carbIndex;
     private int fatIndex;
+
     private String []  ingredients_array;
     private List<String>  foundAllergies = new ArrayList<String>();
     String [] userAllergiesArray;
     private String userAllergies;
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+
+    private Boolean foundCal=false;
+    private Boolean foundProtein=false;
+    private Boolean foundCarb =false;
+    private Boolean foundFat=false;
+
+
     public static double findSimilarity(String x, String y) {
 
         double maxLength = Math.max(x.length(), y.length());
@@ -63,10 +73,12 @@ public class TextRecognitionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_recognition);
+
         Allergies = (TextView)findViewById(R.id.allergieslabel);
+
         Calories = (TextView)findViewById((R.id.calnumber));
         Protein = (TextView)findViewById(R.id.proteinnumber);
-        Sugar = (TextView)findViewById((R.id.sugarnumber));
+        Carb = (TextView)findViewById((R.id.carbnumber));
         Fat = (TextView)findViewById(R.id.fatnumber);
         //fStore = FirebaseFirestore.getInstance();
 
@@ -88,44 +100,54 @@ public class TextRecognitionActivity extends AppCompatActivity {
 //        String [] food_info = {"CElurios", "560", "prOton", "34","fut", "23", "Sagar","9859"};
 
 
+
         for(int i=0; i< food_info.length; i++){
             if(findSimilarity("ingredients", food_info[i].toLowerCase())>= 0.5){
 
                 ingredients_array = Arrays.copyOfRange(food_info, i, (food_info.length-1));
             }
 
-            if(findSimilarity("calories", food_info[i].toLowerCase())>= 0.5){
+            
+            if(findSimilarity("calories", food_info[i].toLowerCase())>= 0.5 && !foundCal){
+
 
                 caloriesIndex = i+1;
+                foundCal = true;
             }
-            if(findSimilarity("protein", food_info[i].toLowerCase())>= 0.5){
+            if(findSimilarity("protein", food_info[i].toLowerCase())>= 0.5 && !foundProtein){
 
                 proteinIndex = i+1;
+                foundProtein = true;
 
             }
-            if(findSimilarity("fat", food_info[i].toLowerCase())>= 0.8){
 
-                sugarIndex = i+1;
+            if(findSimilarity("carbohydrates", food_info[i].toLowerCase())>= 0.5 && !foundCarb){
+
+
+                carbIndex = i+1;
+                foundCarb = true;
 
             }
-            if(findSimilarity("sugar", food_info[i].toLowerCase())>= 0.8){
+
+            if(findSimilarity("fat", food_info[i].toLowerCase())>= 0.8 && !foundFat){
 
                 fatIndex = i+1;
+                foundFat = true;
 
             }
 
         }
-//        System.out.println(caloriesIndex);
-//        System.out.println(proteinIndex);
-//        System.out.println(sugarIndex);
-//        System.out.println(fatIndex);
-//
-//        System.out.println(Arrays.deepToString(food_info));
+        System.out.println(caloriesIndex);
+        System.out.println(proteinIndex);
+        System.out.println(carbIndex);
+        System.out.println(fatIndex);
+
+       System.out.println(Arrays.deepToString(food_info));
 //        System.out.println("printing Array of food");
 
         Calories.setText(food_info[caloriesIndex]);
         Protein.setText(food_info[proteinIndex]);
-        Sugar.setText(food_info[sugarIndex]);
+        Carb.setText(food_info[carbIndex]);
         Fat.setText(food_info[fatIndex]);
         //Ingredients.setText(id);
 

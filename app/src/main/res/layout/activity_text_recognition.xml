@@ -82,7 +82,7 @@
         app:layout_constraintVertical_bias="0.405" />
 
     <TextView
-        android:id="@+id/sugarnumber"
+        android:id="@+id/carbnumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_mono_bold"
@@ -142,6 +142,7 @@
         app:layout_constraintVertical_bias="0.575" />
 
     <TextView
+
         android:id="@+id/allergieslabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -157,11 +158,14 @@
         app:layout_constraintVertical_bias="0.744" />
 
     <TextView
-        android:id="@+id/Sugarlabel"
+ 
+
+        android:id="@+id/CarbLabel"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_mono_bold"
-        android:text="Sugar: "
+        android:text="Carbohydrates: "
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -170,6 +174,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.516" />
+
 
     <TextView
         android:id="@+id/ingredients"
@@ -184,5 +189,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
