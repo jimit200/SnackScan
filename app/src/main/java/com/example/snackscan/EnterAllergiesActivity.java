@@ -44,7 +44,10 @@ public class EnterAllergiesActivity extends AppCompatActivity {
                         Log.d(TAG, "onSuccess: user allergies added for " + id);
                     }
                 });
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                Intent sendIntent = new Intent(getApplicationContext(), MainActivity.class);
+                sendIntent.putExtra("user_id", id);
+                startActivity(sendIntent);
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
 
             }

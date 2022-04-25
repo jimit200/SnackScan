@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private String resultText;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         nextBtn = (Button) findViewById(R.id.nextBtn);
         //    manual enter btn : take you to a screen where you can manually enter 4 elements
         manualBtn = (Button) findViewById(R.id.manualBtn);
+
 
         nextBtn.setOnClickListener(new View.OnClickListener(){
             @Override
