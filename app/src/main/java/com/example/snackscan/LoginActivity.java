@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
     TextView mRegisterButton;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
-    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.createLoginButton);
         mRegisterButton = findViewById(R.id.registerChoiceText);
         fAuth = FirebaseAuth.getInstance();
-        userID = fAuth.getCurrentUser().getUid();
         progressBar = findViewById(R.id.loginProgressBar);
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
